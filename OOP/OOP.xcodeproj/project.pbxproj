@@ -19,7 +19,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		737263E32E7349C700384999 /* OOP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OOP; sourceTree = BUILT_PRODUCTS_DIR; };
+		737263F82E734DE600384999 /* OOP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = OOP; path = "/Users/arsbelkin/Desktop/РГУ(НИУ) нефти и газа им. Губкина/Пятый семестр/ООП/OOP/OOP/build/Debug/OOP"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,16 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				737263E52E7349C700384999 /* OOP */,
-				737263E42E7349C700384999 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		737263E42E7349C700384999 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				737263E32E7349C700384999 /* OOP */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -79,7 +70,7 @@
 			packageProductDependencies = (
 			);
 			productName = OOP;
-			productReference = 737263E32E7349C700384999 /* OOP */;
+			productReference = 737263F82E734DE600384999 /* OOP */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -93,6 +84,7 @@
 				TargetAttributes = {
 					737263E22E7349C700384999 = {
 						CreatedOnToolsVersion = 16.4;
+						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -106,7 +98,7 @@
 			mainGroup = 737263DA2E7349C700384999;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 737263E42E7349C700384999 /* Products */;
+			productRefGroup = 737263DA2E7349C700384999;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -246,20 +238,25 @@
 		737263EB2E7349C700384999 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6V62T4JC88;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
 		737263EC2E7349C700384999 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6V62T4JC88;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
