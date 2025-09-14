@@ -3,8 +3,9 @@
 
 class Student{
 private:
-    int id;
-    int group_id;
+    static int current_studentId;
+    
+    int studentId;
     std::string name;
     std::string surname;
     int age;
@@ -22,5 +23,6 @@ public:
     
     friend std::ostream& operator << (std::ostream &os, const Student &student);
     void save(std::ostream &file) const;
+    
+    static void set_currentID(int &new_current_studentId);
 };
-

@@ -15,5 +15,6 @@ int valid_int(int min_value, int max_value){
         cin.ignore(10000, '\n');
         cout << "input number from " << min_value << " to " << max_value << endl;
     }
+    cin.ignore(10000, '\n');
     return value;
 }

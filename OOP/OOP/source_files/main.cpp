@@ -1,11 +1,11 @@
 #include <iostream>
-#include "../header_files/utils.h"
+#include "../header_files/menu.h"
 
 using namespace std;
 
+
 int main(){
-    int value = valid_int(5, 10);
-    cout << "dsgf" << endl << value << endl;
+    main_menu();
     return 0;
 }
 
