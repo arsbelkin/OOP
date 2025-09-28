@@ -10,13 +10,13 @@ using namespace std;
 
 void print_main_menu(){
     cout << endl << endl;
-    cout << "---Main menu---" << endl;
-    cout << "0 - stop prog" << endl;
-    cout << "1 - add student to group" << endl;
-    cout << "2 - show all students" << endl;
-    cout << "3 - save students" << endl;
-    cout << "4 - load students" << endl;
-    cout << "5 - delete all students" << endl;
+    cout << "---МЕНЮ---" << endl;
+    cout << "0 - завершить программу" << endl;
+    cout << "1 - добавить студента" << endl;
+    cout << "2 - посмотреть всех студентов" << endl;
+    cout << "3 - сохранить студентов в файл" << endl;
+    cout << "4 - загрузить студентов из файла" << endl;
+    cout << "5 - удалить всех студентов" << endl;
     cout << "----------------" << endl << endl;
 }
 
@@ -24,7 +24,7 @@ void print_main_menu(){
 void save_students(Group &group) {
     string file_name;
     
-    cout << "file to save: ";
+    cout << "файл для сохранения: ";
     getline(cin>>std::ws, file_name);
     
     ofstream file("./static/" + file_name);
@@ -33,15 +33,15 @@ void save_students(Group &group) {
         group.saveStudents(file);
         file.close();
     } else {
-        cout << "file not open!" << endl;
+        cout << "не удалось открыть файл!" << endl;
     }
 }
 
 
 void main_menu(){
-    Group group("AS-23-05");
+    Group group("АС-23-05");
     
-    cout << "Group " << group.get_title() << endl;
+    cout << "Группа: " << group.get_title() << endl;
     
     string file_name;
     
@@ -53,7 +53,7 @@ void main_menu(){
         switch (choice) {
             case 0:
                 cout << endl;
-                cout << "Goodbye!" << endl;
+                cout << "До свидания!" << endl;
                 return;
                 break;
                 
@@ -79,9 +79,8 @@ void main_menu(){
                 
             default:
                 cout << endl;
-                cout << "You choose the number, that not exist!" << endl;
+                cout << "надо выбрать существующий пункт меню!" << endl;
                 break;
         }
     }
 }
-

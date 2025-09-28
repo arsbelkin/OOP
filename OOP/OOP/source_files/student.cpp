@@ -11,21 +11,21 @@ int Student::current_studentId = 0;
 
 
 Student::Student(){
-    cout << "----add student----" << endl;
+    cout << "----создание студента----" << endl;
     
     this->studentId = ++Student::current_studentId;
     cout << "id: " << this->studentId << endl;
     
-    cout << "name: ";
+    cout << "имя: ";
     getline(cin >> std::ws, this->name);
     
-    cout << "surname: ";
+    cout << "фамилия: ";
     getline(cin >> std::ws, this->surname);
     
-    cout << "age: ";
+    cout << "возраст: ";
     this->age = valid_int(0, 1000);
     
-    cout << "gender(0-W, 1-M): ";
+    cout << "пол(0-Ж, 1-М): ";
     this->gender = valid_int(0, 1);
     
     cout << "----------" << endl;
@@ -68,17 +68,17 @@ bool Student::get_gender() const{
 
 
 std::string Student::print_gender() const{
-    return this->gender == 1 ? "M" : "W";
+    return this->gender == 1 ? "М" : "Ж";
 }
 
 
 ostream& operator << (ostream &os, const Student &student){
-    os << "-----student " << student.get_id() << "-----" << endl
+    os << "-----студент " << student.get_id() << "-----" << endl
         << "id: " << student.get_id() << endl
-        << "name: " << student.name << endl
-        << "surname: " << student.surname << endl
-        << "age: " << student.age << endl
-        << "gender: " << student.print_gender() << endl
+        << "имя: " << student.name << endl
+        << "фамилия: " << student.surname << endl
+        << "возраст: " << student.age << endl
+        << "пол: " << student.print_gender() << endl
         << "--------------" << endl;
 
     return os;
@@ -86,7 +86,7 @@ ostream& operator << (ostream &os, const Student &student){
 
 
 void Student::save(std::ostream &file) const{
-    file << "student" << endl;
+    file << "студент" << endl;
     file << this->studentId << endl;
     file << this->name << endl;
     file << this->surname << endl;

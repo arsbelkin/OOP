@@ -31,7 +31,7 @@ int Group::addStudent(std::ifstream &file){
 
 void Group::showAllStudents() const{
     if (!this->students.size()){
-        cout << "There arent students in group!" << endl;
+        cout << "Нет студентов в группе!" << endl;
         return;
     }
         
@@ -45,7 +45,7 @@ void Group::deleteAllStudents(){
         delete student;
     
     this->students.clear();
-    cout << "all students were deleted!" << endl;
+    cout << "все студенты удалены!" << endl;
 }
 
 
@@ -53,7 +53,7 @@ void Group::saveStudents(std::ostream &file) const{
     for (Student* student : this->students)
         student->save(file);
     
-    cout << "all students were saved!" << endl;
+    cout << "все студенты сохранены!" << endl;
 }
 
 
@@ -61,7 +61,7 @@ void Group::loadStudents(){
     string file_name;
     int counter = 0;
     
-    cout << "file to load: ";
+    cout << "файл для загрузки: ";
     getline(cin>>std::ws, file_name);
     
     ifstream file("./static/" + file_name);
@@ -72,7 +72,7 @@ void Group::loadStudents(){
         string line;
         
         while (file >> line){
-            if (line == "student"){
+            if (line == "студент"){
                 this->addStudent(file);
                 ++counter;
             }
@@ -81,10 +81,10 @@ void Group::loadStudents(){
         file.close();
         this->set_current_studentID();
     } else {
-        cout << "file not open!" << endl;
+        cout << "файл не открыт!" << endl;
     }
     
-    cout << counter << " students were load" << endl;
+    cout << counter << " студентов было загружено" << endl;
 }
 
 
@@ -102,4 +102,3 @@ void Group::set_current_studentID(){
 Group::~Group(){
     this->deleteAllStudents();
 }
-
