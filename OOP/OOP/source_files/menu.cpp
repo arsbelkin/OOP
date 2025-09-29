@@ -8,15 +8,20 @@
 using namespace std;
 
 
+BOOST_CLASS_EXPORT_IMPLEMENT(Student)
+BOOST_CLASS_EXPORT_IMPLEMENT(GroupLeader)
+
+
 void print_main_menu(){
     cout << endl << endl;
     cout << "---МЕНЮ---" << endl;
     cout << "0 - завершить программу" << endl;
     cout << "1 - добавить студента" << endl;
-    cout << "2 - посмотреть всех студентов" << endl;
-    cout << "3 - сохранить студентов в файл" << endl;
-    cout << "4 - загрузить студентов из файла" << endl;
-    cout << "5 - удалить всех студентов" << endl;
+    cout << "2 - добавить старосту" << endl;
+    cout << "3 - посмотреть всех обучающихся" << endl;
+    cout << "4 - сохранить обучающихся в файл" << endl;
+    cout << "5 - загрузить обучающийхся из файла" << endl;
+    cout << "6 - удалить всех обучающихся" << endl;
     cout << "----------------" << endl << endl;
 }
 
@@ -48,7 +53,7 @@ void main_menu(){
     while(true){
         print_main_menu();
         
-        int choice = valid_int(0, 5);
+        int choice = valid_int(0, 6);
         
         switch (choice) {
             case 0:
@@ -58,22 +63,26 @@ void main_menu(){
                 break;
                 
             case 1:
-                group.addStudent();
+                group.addStudent<Student>();
+                break;
+                
+            case 2:
+                group.addStudent<GroupLeader>();
                 break;
             
-            case 2:
+            case 3:
                 group.showAllStudents();
                 break;
                 
-            case 3:
+            case 4:
                 save_students(group);
                 break;
                 
-            case 4:
+            case 5:
                 group.loadStudents();
                 break;
             
-            case 5:
+            case 6:
                 group.deleteAllStudents();
                 break;
                 

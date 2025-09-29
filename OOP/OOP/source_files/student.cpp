@@ -10,9 +10,7 @@ using namespace std;
 int Student::current_studentId = 0;
 
 
-Student::Student(){
-    cout << "----создание студента----" << endl;
-    
+Student::Student(std::istream &is){
     this->studentId = ++Student::current_studentId;
     cout << "id: " << this->studentId << endl;
     
@@ -27,18 +25,6 @@ Student::Student(){
     
     cout << "пол(0-Ж, 1-М): ";
     this->gender = valid_int(0, 1);
-    
-    cout << "----------" << endl;
-}
-
-
-Student::Student(std::ifstream &file){
-    file >> this->studentId;
-    file.ignore(10000, '\n');
-    getline(file>>std::ws, this->name);
-    getline(file>>std::ws, this->surname);
-    file >> this->age;
-    file >> this->gender;
 }
 
 
@@ -72,26 +58,12 @@ std::string Student::print_gender() const{
 }
 
 
-ostream& operator << (ostream &os, const Student &student){
-    os << "-----студент " << student.get_id() << "-----" << endl
-        << "id: " << student.get_id() << endl
-        << "имя: " << student.name << endl
-        << "фамилия: " << student.surname << endl
-        << "возраст: " << student.age << endl
-        << "пол: " << student.print_gender() << endl
-        << "--------------" << endl;
-
-    return os;
-}
-
-
-void Student::save(std::ostream &file) const{
-    file << "студент" << endl;
-    file << this->studentId << endl;
-    file << this->name << endl;
-    file << this->surname << endl;
-    file << this->age << endl;
-    file << this->gender << endl;
+void Student::writeToConsole() const {
+      cout << "id: " << this->studentId << endl
+        << "имя: " << this->name << endl
+        << "фамилия: " << this->surname << endl
+        << "возраст: " << this->age << endl
+        << "пол: " << this->print_gender() << endl;
 }
 
 
