@@ -14,6 +14,8 @@ private:
     std::string surname;
     int age;
     bool gender;
+    
+    friend class boost::serialization::access;
 public:
     Student() : studentId(0), name(""), surname(""), age(0), gender(0) { };
     Student(std::istream &is);

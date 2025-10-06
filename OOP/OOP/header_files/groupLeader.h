@@ -6,6 +6,8 @@ class GroupLeader : public Student{
 private:
     std::string email;
     std::string phoneNumber;
+    
+    friend class boost::serialization::access;
 public:
     GroupLeader();
     GroupLeader(std::istream &is);

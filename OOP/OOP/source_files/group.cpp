@@ -38,7 +38,7 @@ void Group::deleteAllStudents(){
 
 void Group::saveStudents(std::ostream &file){
     boost::archive::binary_oarchive ofile(file);
-    ofile << *this;
+    ofile << this->students;
     
     cout << "все обучающиеся сохранены!" << endl;
 }
@@ -54,7 +54,7 @@ void Group::loadStudents(){
     
     if (file.is_open()){
         boost::archive::binary_iarchive ifile(file);
-        ifile >> *this;
+        ifile >> this->students;
         this->set_current_studentID();
     } else {
         cout << "файл не открыт!" << endl;
