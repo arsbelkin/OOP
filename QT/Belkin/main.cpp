@@ -1,6 +1,11 @@
 #include "belkin.h"
+#include <boost/serialization/export.hpp>
 
 #include <QApplication>
+
+
+BOOST_CLASS_EXPORT_IMPLEMENT(Student)
+BOOST_CLASS_EXPORT_IMPLEMENT(GroupLeader)
 
 
 int main(int argc, char *argv[])

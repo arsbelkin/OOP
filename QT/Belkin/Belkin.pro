@@ -13,7 +13,7 @@ SOURCES += \
     groupLeader.cpp \
     main.cpp \
     belkin.cpp \
-    menu.cpp \
+    #menu.cpp \
     student.cpp \
     utils.cpp
 
@@ -21,7 +21,7 @@ HEADERS += \
     belkin.h \
     group.h \
     groupLeader.h \
-    menu.h \
+    #menu.h \
     student.h \
     utils.h
 

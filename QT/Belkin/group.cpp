@@ -15,6 +15,11 @@ std::string Group::get_title() const{
 }
 
 
+std::vector<std::shared_ptr<Student>> Group::get_students() const{
+    return this->students;
+}
+
+
 void Group::showAllStudents() const{
     if (!this->students.size()){
         cout << "Нет обучающихся в группе!" << endl;
@@ -32,35 +37,33 @@ void Group::showAllStudents() const{
 
 void Group::deleteAllStudents(){
     this->students.clear();
-    cout << "все обучающиеся удалены!" << endl;
 }
 
 
-void Group::saveStudents(std::ostream &file){
-    boost::archive::binary_oarchive ofile(file);
-    ofile << this->students;
+bool Group::saveStudents(const string& filename){
+    ofstream file(filename);
 
-    cout << "все обучающиеся сохранены!" << endl;
+    if (file.is_open()){
+        boost::archive::binary_oarchive ofile(file);
+        ofile << this->students;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
-void Group::loadStudents(){
-    string file_name;
-
-    cout << "файл для загрузки: ";
-    getline(cin>>std::ws, file_name);
-
-    ifstream file("./static/" + file_name);
+bool Group::loadStudents(const string& filename){
+    ifstream file(filename);
 
     if (file.is_open()){
         boost::archive::binary_iarchive ifile(file);
         ifile >> this->students;
         this->set_current_studentID();
+        return true;
     } else {
-        cout << "файл не открыт!" << endl;
+        return false;
     }
-
-    cout << this->students.size() << " обучающихся было загружено" << endl;
 }
 
 

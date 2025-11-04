@@ -39,11 +39,13 @@ public:
 
     std::string get_title() const;
 
+    std::vector<std::shared_ptr<Student>> get_students() const;
+
     void showAllStudents() const;
     void deleteAllStudents();
 
-    void saveStudents(std::ostream &file);
-    void loadStudents();
+    bool saveStudents(const std::string& filename);
+    bool loadStudents(const std::string& filename);
 
     void set_current_studentID();
 };

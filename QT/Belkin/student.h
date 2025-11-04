@@ -49,5 +49,4 @@ public:
 
 BOOST_CLASS_EXPORT_KEY(Student)
 
-
 #endif // STUDENT_H
