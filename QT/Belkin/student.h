@@ -6,6 +6,7 @@
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/base_object.hpp>
+#include <string>
 
 
 class Student{
@@ -24,6 +25,8 @@ public:
     Student(std::istream &is);
 
     virtual void writeToConsole() const;
+
+    virtual std::vector<std::string> get_info() const;
 
     virtual std::string get_className() const {return "студент";};
     static std::string get_classNameStatic() {return "студент";};

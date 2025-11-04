@@ -20,6 +20,8 @@ public:
 
     void writeToConsole() const override;
 
+    std::vector<std::string> get_info() const override;
+
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {
         ar& boost::serialization::base_object<Student>(*this);

@@ -25,29 +25,18 @@ Belkin::~Belkin()
 
 
 void Belkin::paintEvent(QPaintEvent *event){
-    Q_UNUSED(event);
-
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
     QPen pen(Qt::black, 2);
     painter.setPen(pen);
 
-    double tWidth = (1200 - 220) / 8.;
-
-    painter.drawLine(220, 10, 1200, 10);
-    painter.drawLine(220, 70, 1200, 70);
-
     QFont font("Arial", 14, QFont::Bold);
     painter.setFont(font);
 
-    vector<string> name_map = {"id", "роль", "имя", "фамилия", "возраст", "пол", "email", "телефон"};
-
-    for (int i=0; i<9;++i){
-        painter.drawLine(220 + i * tWidth, 10, 220 + i * tWidth, 70);
-        painter.drawText(220 + tWidth / 3 + i * tWidth , 45, QString::fromStdString(name_map[i]));
-    }
+    this->group.showAllStudents(&painter, width(), height());
 }
+
 
 
 void Belkin::on_pushButton_load_clicked()

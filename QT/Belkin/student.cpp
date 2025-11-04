@@ -3,6 +3,7 @@
 #include "student.h"
 #include "utils.h"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -55,6 +56,22 @@ bool Student::get_gender() const{
 
 std::string Student::print_gender() const{
     return this->gender == 1 ? "М" : "Ж";
+}
+
+
+std::vector<std::string> Student::get_info() const {
+    std::vector<std::string> res;
+
+    res.push_back(std::to_string(this->get_id()));
+    res.push_back(this->get_className());
+    res.push_back(this->get_name());
+    res.push_back(this->get_surname());
+    res.push_back(std::to_string(this->get_age()));
+    res.push_back(std::to_string(this->get_gender()));
+    res.push_back("---");
+    res.push_back("---");
+
+    return res;
 }
 
 

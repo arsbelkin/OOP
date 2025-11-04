@@ -1,5 +1,6 @@
 #include <iostream>
 #include "groupLeader.h"
+#include <vector>
 
 using namespace std;
 
@@ -21,3 +22,13 @@ void GroupLeader::writeToConsole() const {
     cout << "номер телефона: " << this->phoneNumber << endl;
 }
 
+
+std::vector<std::string> GroupLeader::get_info() const {
+    std::vector<std::string> res = Student::get_info();
+
+    res[1] = this->get_className();
+    res[5] = this->email;
+    res[6] = this->phoneNumber;
+
+    return res;
+}

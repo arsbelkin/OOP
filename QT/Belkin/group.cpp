@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "group.h"
+#include <algorithm>
+#include <QFontMetrics>
 
 using namespace std;
 
@@ -20,18 +22,56 @@ std::vector<std::shared_ptr<Student>> Group::get_students() const{
 }
 
 
-void Group::showAllStudents() const{
-    if (!this->students.size()){
-        cout << "Нет обучающихся в группе!" << endl;
-        return;
-    }
+void Group::showAllStudents(QPainter *painter, double wdth, double hgth) const{
+    double tHeight = hgth * 0.08;
+    int k = 0;
 
-    for (const auto& student : this->students){
-        cout << "-----" << student->get_className() << " " << student->get_id() << "-----" << endl;
-        student->writeToConsole();
-        cout << "--------------" << endl;
-    }
 
+    std::vector<std::vector<std::string>> allData = this->getData();
+
+    std::vector<double> dWdth = calcWidth(allData, painter);
+    double sum = std::accumulate(dWdth.begin(), dWdth.end(), 0.0);
+
+
+    auto drawFunc = std::bind(&Group::draw,
+                              this,
+                              painter,
+                              std::placeholders::_1,
+                              dWdth,
+                              std::ref(sum),
+                              wdth,
+                              tHeight,
+                              std::ref(k));
+
+    for_each(allData.begin(), allData.end(), drawFunc);
+}
+
+
+void Group::draw(QPainter *painter,
+                 std::vector<std::string> &elem,
+                 std::vector<double> dWdth,
+                 double &sum, double wdth, double tHeight, int &k) const
+{
+    double tWidth = 220;
+
+    double dx;
+    for (int i=0; i<8; ++i){
+
+        if (sum > wdth - 250)
+            dx = dWdth[i];
+        else
+            dx = (wdth - 250) / 8.;
+
+        painter->drawLine(220, 10 + tHeight * k, wdth-30, 10 + tHeight * k);
+        painter->drawLine(220, 10 + tHeight * (k + 1), wdth-30, 10 + tHeight * (k+1));
+
+        painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k+1));
+        painter->drawText(tWidth + wdth * 0.01, 10 + k * tHeight + tHeight * 2 / 3, QString::fromStdString(elem[i]));
+
+        tWidth += dx;
+    }
+    painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k+1));
+    ++k;
 }
 
 
@@ -70,9 +110,11 @@ bool Group::loadStudents(const string& filename){
 void Group::set_current_studentID(){
     int max_id = 0;
 
-    for (const auto &student : this->students){
+
+    for_each(this->students.begin(), this->students.end(),
+             [&max_id](const auto &student){
         max_id = max(max_id, student->get_id());
-    }
+    });
 
     Student::set_currentID(max_id);
 }
@@ -80,4 +122,38 @@ void Group::set_current_studentID(){
 
 Group::~Group(){
     this->deleteAllStudents();
+}
+
+
+std::vector<std::vector<std::string>> Group::getData() const{
+    std::vector<std::vector<std::string>> res = {
+        {"id", "роль", "имя", "фамилия", "возраст", "пол", "email", "телефон"}
+    };
+
+    for_each(this->students.begin(), this->students.end(),
+             [&res](const auto &student) {
+                 res.push_back(student->get_info());
+    });
+
+    return res;
+}
+
+
+ std::vector<double> Group::calcWidth(const std::vector<std::vector<std::string>> &data, QPainter *painter) const{
+    std::vector<double> widths(8, 0.0);
+    QFontMetrics metrics(painter->font());
+
+    for (const auto& row : data) {
+        for (size_t i = 0; i < row.size() && i < 8; ++i) {
+            QString text = QString::fromStdString(row[i]);
+            double textWidth = metrics.horizontalAdvance(text);
+            widths[i] = std::max(widths[i], textWidth);
+        }
+    }
+
+    for (double& width : widths) {
+        width += 20.0;
+    }
+
+    return widths;
 }

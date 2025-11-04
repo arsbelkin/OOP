@@ -5,11 +5,13 @@
 #include <iostream>
 #include "student.h"
 #include "groupLeader.h"
+#include <vector>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/vector.hpp>
+#include "QPainter"
 
 
 class Group{
@@ -41,13 +43,22 @@ public:
 
     std::vector<std::shared_ptr<Student>> get_students() const;
 
-    void showAllStudents() const;
+    void showAllStudents(QPainter *painter, double wdth, double hgth) const;
     void deleteAllStudents();
 
     bool saveStudents(const std::string& filename);
     bool loadStudents(const std::string& filename);
 
     void set_current_studentID();
+
+    std::vector<std::vector<std::string>> getData() const;
+
+    std::vector<double> calcWidth(const std::vector<std::vector<std::string>> &data, QPainter *painter) const;
+
+    void draw(QPainter *painter,
+              std::vector<std::string> &elem,
+              std::vector<double> dWdth,
+              double &sum, double wdth, double tHeight, int &k) const;
 };
 
 
