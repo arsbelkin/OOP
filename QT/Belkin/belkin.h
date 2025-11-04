@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "group.h"
+#include "QPainter"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,6 +18,9 @@ class Belkin : public QMainWindow
 public:
     Belkin(QWidget *parent = nullptr);
     ~Belkin();
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private slots:
     void on_pushButton_load_clicked();
