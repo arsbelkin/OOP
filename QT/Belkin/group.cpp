@@ -21,7 +21,6 @@ std::vector<std::shared_ptr<Student>> Group::get_students() const{
     return this->students;
 }
 
-
 void Group::showAllStudents(QPainter *painter, double wdth, double hgth) const{
     double tHeight = hgth * 0.08;
     int k = 0;
@@ -53,24 +52,25 @@ void Group::draw(QPainter *painter,
                  double &sum, double wdth, double tHeight, int &k) const
 {
     double tWidth = 220;
+    size_t i = 0;
 
-    double dx;
-    for (int i=0; i<8; ++i){
+    std::for_each(elem.begin(), elem.end(),
+                  [painter, &dWdth, &sum, wdth, tHeight, &k, &tWidth, &i](const std::string& cell) {
+                      double dx = (sum > wdth - 250) ? dWdth[i] : (wdth - 250) / 8.;
 
-        if (sum > wdth - 250)
-            dx = dWdth[i];
-        else
-            dx = (wdth - 250) / 8.;
+                      painter->drawLine(220, 10 + tHeight * k, wdth-30, 10 + tHeight * k);
+                      painter->drawLine(220, 10 + tHeight * (k + 1), wdth-30, 10 + tHeight * (k + 1));
 
-        painter->drawLine(220, 10 + tHeight * k, wdth-30, 10 + tHeight * k);
-        painter->drawLine(220, 10 + tHeight * (k + 1), wdth-30, 10 + tHeight * (k+1));
+                      painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k + 1));
+                      painter->drawText(tWidth + wdth * 0.01,
+                                        10 + k * tHeight + tHeight * 2 / 3,
+                                        QString::fromStdString(cell));
 
-        painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k+1));
-        painter->drawText(tWidth + wdth * 0.01, 10 + k * tHeight + tHeight * 2 / 3, QString::fromStdString(elem[i]));
+                      tWidth += dx;
+                      ++i;
+                  });
 
-        tWidth += dx;
-    }
-    painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k+1));
+    painter->drawLine(tWidth, 10, tWidth, 10 + tHeight * (k + 1));
     ++k;
 }
 
@@ -139,11 +139,11 @@ std::vector<std::vector<std::string>> Group::getData() const{
 }
 
 
- std::vector<double> Group::calcWidth(const std::vector<std::vector<std::string>> &data, QPainter *painter) const{
+ std::vector<double> Group::calcWidth(std::vector<std::vector<std::string>> &allData, QPainter *painter) const{
     std::vector<double> widths(8, 0.0);
     QFontMetrics metrics(painter->font());
 
-    for (const auto& row : data) {
+    for (const auto& row : allData) {
         for (size_t i = 0; i < row.size() && i < 8; ++i) {
             QString text = QString::fromStdString(row[i]);
             double textWidth = metrics.horizontalAdvance(text);

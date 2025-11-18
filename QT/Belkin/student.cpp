@@ -67,7 +67,7 @@ std::vector<std::string> Student::get_info() const {
     res.push_back(this->get_name());
     res.push_back(this->get_surname());
     res.push_back(std::to_string(this->get_age()));
-    res.push_back(std::to_string(this->get_gender()));
+    res.push_back(this->print_gender());
     res.push_back("---");
     res.push_back("---");
 

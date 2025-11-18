@@ -53,7 +53,7 @@ public:
 
     std::vector<std::vector<std::string>> getData() const;
 
-    std::vector<double> calcWidth(const std::vector<std::vector<std::string>> &data, QPainter *painter) const;
+    std::vector<double> calcWidth(std::vector<std::vector<std::string>> &allData, QPainter *painter) const;
 
     void draw(QPainter *painter,
               std::vector<std::string> &elem,
