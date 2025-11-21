@@ -14,54 +14,12 @@
    <string>Belkin</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_del">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>300</y>
-      <width>151</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>удалить</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_save">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>230</y>
-      <width>151</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>сохранить</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_load">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>151</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>загрузить</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_total">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>10</x>
       <y>40</y>
-      <width>101</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -88,8 +46,32 @@
      <height>30</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>действия</string>
+    </property>
+    <addaction name="action_load"/>
+    <addaction name="action_save"/>
+    <addaction name="action_clear"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_load">
+   <property name="text">
+    <string>загрузить</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="text">
+    <string>сохранить</string>
+   </property>
+  </action>
+  <action name="action_clear">
+   <property name="text">
+    <string>удалить</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

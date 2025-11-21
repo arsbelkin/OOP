@@ -22,12 +22,14 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
+    void printTableHead(QPainter *painter, const int &st_point, const int &fn_point);
+
 private slots:
-    void on_pushButton_load_clicked();
+    void on_action_load_triggered();
 
-    void on_pushButton_save_clicked();
+    void on_action_save_triggered();
 
-    void on_pushButton_del_clicked();
+    void on_action_clear_triggered();
 
 private:
     Ui::Belkin *ui;

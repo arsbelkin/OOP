@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Belkin w;
     w.setWindowTitle("Belkin AS-23-05");
-    w.setMinimumWidth(921);
+    w.setMinimumWidth(1180);
     w.setMinimumHeight(400);
     w.show();
     return a.exec();
