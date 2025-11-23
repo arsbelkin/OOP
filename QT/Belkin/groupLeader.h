@@ -18,9 +18,8 @@ public:
     std::string get_className() const override {return "староста";};
     static std::string get_classNameStatic() {return "староста";};
 
-    void writeToConsole() const override;
-
-    std::vector<std::string> get_info() const override;
+    void draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
+              const int &rWidth, const int &rHeight) const override;
 
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {

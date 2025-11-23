@@ -7,6 +7,7 @@
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <string>
+#include "QPainter"
 
 
 class Student{
@@ -24,9 +25,8 @@ public:
     Student() : studentId(0), name(""), surname(""), age(0), gender(0) { };
     Student(std::istream &is);
 
-    virtual void writeToConsole() const;
-
-    virtual std::vector<std::string> get_info() const;
+    virtual void draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
+                      const int &rWidth, const int &rHeight) const;
 
     virtual std::string get_className() const {return "студент";};
     static std::string get_classNameStatic() {return "студент";};

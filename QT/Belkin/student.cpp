@@ -59,28 +59,40 @@ std::string Student::print_gender() const{
 }
 
 
-std::vector<std::string> Student::get_info() const {
-    std::vector<std::string> res;
+void Student::draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
+                   const int &rWidth, const int &rHeight) const{
 
-    res.push_back(std::to_string(this->get_id()));
-    res.push_back(this->get_className());
-    res.push_back(this->get_name());
-    res.push_back(this->get_surname());
-    res.push_back(std::to_string(this->get_age()));
-    res.push_back(this->print_gender());
-    res.push_back("---");
-    res.push_back("---");
+    painter->drawRect(st_Xpoint, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::number(this->studentId));
 
-    return res;
-}
+    painter->drawRect(st_Xpoint + rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString(this->get_className()));
 
+    painter->drawRect(st_Xpoint + 2 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 2 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString(this->get_name()));
 
-void Student::writeToConsole() const {
-    cout << "id: " << this->studentId << endl
-         << "имя: " << this->name << endl
-         << "фамилия: " << this->surname << endl
-         << "возраст: " << this->age << endl
-         << "пол: " << this->print_gender() << endl;
+    painter->drawRect(st_Xpoint + 3 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 3 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString(this->get_surname()));
+
+    painter->drawRect(st_Xpoint + 4 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 4 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::number(this->get_age()));
+
+    painter->drawRect(st_Xpoint + 5 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 5 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString(this->print_gender()));
+
+    painter->drawRect(st_Xpoint + 6 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 6 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString("------"));
+
+    painter->drawRect(st_Xpoint + 7 * rWidth, st_Ypoint, rWidth, rHeight);
+    painter->drawText(st_Xpoint + 7 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
+                      QString::fromStdString("------"));
 }
 
 

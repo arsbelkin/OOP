@@ -43,22 +43,15 @@ public:
 
     std::vector<std::shared_ptr<Student>> get_students() const;
 
-    void showAllStudents(QPainter *painter, double wdth, double hgth) const;
+    void showAllStudents(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
+                         const int &rWidth, const int &rHeight) const;
+
     void deleteAllStudents();
 
     bool saveStudents(const std::string& filename);
     bool loadStudents(const std::string& filename);
 
     void set_current_studentID();
-
-    std::vector<std::vector<std::string>> getData() const;
-
-    std::vector<double> calcWidth(std::vector<std::vector<std::string>> &allData, QPainter *painter) const;
-
-    void draw(QPainter *painter,
-              std::vector<std::string> &elem,
-              std::vector<double> dWdth,
-              double &sum, double wdth, double tHeight, int &k) const;
 };
 
 

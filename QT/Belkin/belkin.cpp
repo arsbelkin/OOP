@@ -34,37 +34,41 @@ void Belkin::paintEvent(QPaintEvent *event){
     QFont font("Arial", 14, QFont::Bold);
     painter.setFont(font);
 
-    this->printTableHead(&painter, 130, 1170);
+    this->printTableHead(&painter);
 
-    //this->group.showAllStudents(&painter, width(), height());
+    this->group.showAllStudents(&painter, this->st_Xpoint, this->st_Ypoint,
+                                this->tWidth, this->tHeight);
 }
 
 
-void Belkin::printTableHead(QPainter *painter, const int &st_point, const int &fn_point){
+void Belkin::printTableHead(QPainter *painter){
     std::vector<std::string> titles_map = {
         {"id", "роль", "имя", "фамилия", "возраст", "пол", "email", "телефон"}
     };
 
     size_t i = 0;
 
-    const int tHeight = 30;
-    const int tWidth = (fn_point - st_point) / 8.;
+    painter->drawLine(this->st_Xpoint, this->st_Ypoint,
+                      this->fn_Xpoint, this->st_Ypoint);
 
-    painter->drawLine(st_point, 10, fn_point, 10);
-    painter->drawLine(st_point, 10 + tHeight, fn_point, 10 + tHeight);
+    painter->drawLine(this->st_Xpoint, this->st_Ypoint + this->tHeight,
+                      this->fn_Xpoint, this->st_Ypoint + this->tHeight);
 
     std::for_each(titles_map.begin(), titles_map.end(),
-                  [&painter, &tWidth, &tHeight, &i, &st_point, &fn_point](const std::string& title) {
+                  [this, &painter, &i](const std::string& title) {
 
-                      painter->drawLine(st_point + i * tWidth, 10, st_point + i * tWidth, 10 + tHeight);
-                      painter->drawText((st_point + i * tWidth) + 20,
-                                       10 + tHeight * 2 / 3,
+                      painter->drawLine(this->st_Xpoint + i * this->tWidth, this->st_Ypoint,
+                          this->st_Xpoint + i * this->tWidth, this->st_Ypoint + this->tHeight);
+
+                      painter->drawText((this->st_Xpoint + i * this->tWidth) + 20,
+                                       this->st_Ypoint + this->tHeight * 2 / 3,
                                        QString::fromStdString(title));
 
                       ++i;
                   });
 
-    painter->drawLine(st_point + i * tWidth, 10, st_point + i * tWidth, 10 + tHeight);
+    painter->drawLine(this->st_Xpoint + i * this->tWidth, this->st_Ypoint,
+                      this->st_Xpoint + i * this->tWidth, this->st_Ypoint + this->tHeight);
 }
 
 
