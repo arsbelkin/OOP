@@ -9,6 +9,9 @@
 #include <string>
 #include "QPainter"
 
+#include "QLineEdit"
+#include "QLabel"
+
 
 class Student{
 private:
@@ -22,14 +25,23 @@ private:
 
     friend class boost::serialization::access;
 public:
-    Student() : studentId(0), name(""), surname(""), age(0), gender(0) { };
-    Student(std::istream &is);
+    Student() : studentId(0), name(""), surname(""), age(0), gender(0) { }
 
     virtual void draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
                       const int &rWidth, const int &rHeight) const;
 
-    virtual std::string get_className() const {return "студент";};
-    static std::string get_classNameStatic() {return "студент";};
+    virtual std::string get_className() const {return "студент";}
+    static std::string get_classNameStatic() {return "студент";}
+
+    virtual std::string get_info() const;
+
+    virtual void fillFields(QLineEdit *id_edit,
+                            QLineEdit *name_edit,
+                            QLineEdit *surname_edit,
+                            QLineEdit *age_edit,
+                            QLineEdit *gender_edit,
+                            QLabel *email_label, QLineEdit *email_edit,
+                            QLabel *phone_label, QLineEdit *phone_edit);
 
     int get_id() const;
     int get_age() const;

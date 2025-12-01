@@ -38,6 +38,8 @@ void Belkin::paintEvent(QPaintEvent *event){
 
     this->group.showAllStudents(&painter, this->st_Xpoint, this->st_Ypoint,
                                 this->tWidth, this->tHeight);
+
+    ui->label_total->setText("Всего: " + QString::number(this->group.get_students().size()));
 }
 
 
@@ -101,3 +103,15 @@ void Belkin::on_action_clear_triggered()
     ui->label_total->setText("Всего: 0");
 }
 
+
+void Belkin::on_action_openDialog_triggered()
+{
+    this->setEnabled(false);
+
+    this->VD.open_dialog(this->group);
+
+    connect(&VD, &viewDialog::finished, this, [this](){
+        this->setEnabled(true);
+        this->VD.setStudents(this->group);
+    });
+}

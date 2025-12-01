@@ -8,14 +8,6 @@ using namespace std;
 GroupLeader::GroupLeader() : Student() {};
 
 
-GroupLeader::GroupLeader(std::istream &is) : Student(is) {
-    cout << "email: ";
-    getline(cin >> std::ws, this->email);
-    cout << "номер телефона: ";
-    getline(cin >> std::ws, this->phoneNumber);
-}
-
-
 void GroupLeader::draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
                        const int &rWidth, const int &rHeight) const{
 
@@ -58,4 +50,35 @@ void GroupLeader::draw(QPainter *painter, const int &st_Xpoint, const int &st_Yp
     painter->fillRect(st_Xpoint + 7 * rWidth, st_Ypoint, rWidth, rHeight, QColor(255, 0, 0, 128));
     painter->drawText(st_Xpoint + 7 * rWidth + 20, st_Ypoint + rHeight * 2 / 3,
                       QString::fromStdString(this->phoneNumber));
+}
+
+
+void GroupLeader::fillFields(QLineEdit *id_edit,
+                             QLineEdit *name_edit,
+                             QLineEdit *surname_edit,
+                             QLineEdit *age_edit,
+                             QLineEdit *gender_edit,
+                             QLabel *email_label, QLineEdit *email_edit,
+                             QLabel *phone_label, QLineEdit *phone_edit)
+{
+    Student::fillFields(id_edit,
+                        name_edit,
+                        surname_edit,
+                        age_edit,
+                        gender_edit,
+                        email_label, email_edit,
+                        phone_label, phone_edit);
+
+    email_label->setVisible(true);
+    email_edit->setVisible(true);
+    email_edit->setText(QString::fromStdString(this->get_email()));
+
+    phone_label->setVisible(true);
+    phone_edit->setVisible(true);
+    phone_edit->setText(QString::fromStdString(this->get_phoneNumber()));
+}
+
+
+std::string GroupLeader::get_info() const{
+    return this->get_name() + " (староста)";
 }

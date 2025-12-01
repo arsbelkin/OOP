@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <QFontMetrics>
 
+
 using namespace std;
 
 
@@ -36,6 +37,11 @@ void Group::showAllStudents(QPainter *painter, const int &st_Xpoint, const int &
 
 void Group::deleteAllStudents(){
     this->students.clear();
+}
+
+
+void Group::set_students(std::vector<std::shared_ptr<Student>> newStudents){
+    this->students = newStudents;
 }
 
 

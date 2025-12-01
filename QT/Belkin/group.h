@@ -42,6 +42,7 @@ public:
     std::string get_title() const;
 
     std::vector<std::shared_ptr<Student>> get_students() const;
+    void set_students(std::vector<std::shared_ptr<Student>> newStudents);
 
     void showAllStudents(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
                          const int &rWidth, const int &rHeight) const;

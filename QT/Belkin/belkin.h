@@ -5,6 +5,9 @@
 #include "group.h"
 #include "QPainter"
 
+#include "viewdialog.h"
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Belkin;
@@ -31,9 +34,13 @@ private slots:
 
     void on_action_clear_triggered();
 
+    void on_action_openDialog_triggered();
+
 private:
     Ui::Belkin *ui;
     Group group = {"AS-23-05"};
+
+    viewDialog VD;
 
     const int st_Xpoint = 130;
     const int st_Ypoint = 30;

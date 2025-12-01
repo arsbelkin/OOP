@@ -1,32 +1,14 @@
 #include <iostream>
 #include "fstream"
 #include "student.h"
-#include "utils.h"
 #include <string>
 #include <vector>
+
 
 using namespace std;
 
 
 int Student::current_studentId = 0;
-
-
-Student::Student(std::istream &is){
-    this->studentId = ++Student::current_studentId;
-    cout << "id: " << this->studentId << endl;
-
-    cout << "имя: ";
-    getline(cin >> std::ws, this->name);
-
-    cout << "фамилия: ";
-    getline(cin >> std::ws, this->surname);
-
-    cout << "возраст: ";
-    this->age = valid_int(0, 1000);
-
-    cout << "пол(0-Ж, 1-М): ";
-    this->gender = valid_int(0, 1);
-}
 
 
 int Student::get_id() const{
@@ -95,6 +77,31 @@ void Student::draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint
                       QString::fromStdString("------"));
 }
 
+
+void Student::fillFields(QLineEdit *id_edit,
+                         QLineEdit *name_edit,
+                         QLineEdit *surname_edit,
+                         QLineEdit *age_edit,
+                         QLineEdit *gender_edit,
+                         QLabel *email_label, QLineEdit *email_edit,
+                         QLabel *phone_label, QLineEdit *phone_edit)
+{
+    id_edit->setText(QString::number(this->get_id()));
+    name_edit->setText(QString::fromStdString(this->get_name()));
+    surname_edit->setText(QString::fromStdString(this->get_surname()));
+    age_edit->setText(QString::number(this->get_age()));
+    gender_edit->setText(QString::fromStdString(this->print_gender()));
+
+    email_label->setVisible(false);
+    email_edit->setVisible(false);
+
+    phone_label->setVisible(false);
+    phone_edit->setVisible(false);
+}
+
+std::string Student::get_info() const{
+    return this->get_name();
+}
 
 void Student::set_currentID(int &new_current_studentId){
     Student::current_studentId = new_current_studentId;

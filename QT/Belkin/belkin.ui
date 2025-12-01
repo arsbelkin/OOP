@@ -54,7 +54,14 @@
     <addaction name="action_save"/>
     <addaction name="action_clear"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>диалог</string>
+    </property>
+    <addaction name="action_openDialog"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_load">
@@ -70,6 +77,11 @@
   <action name="action_clear">
    <property name="text">
     <string>удалить</string>
+   </property>
+  </action>
+  <action name="action_openDialog">
+   <property name="text">
+    <string>открыть диалог</string>
    </property>
   </action>
  </widget>

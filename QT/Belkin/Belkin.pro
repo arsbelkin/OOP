@@ -15,7 +15,7 @@ SOURCES += \
     belkin.cpp \
     #menu.cpp \
     student.cpp \
-    utils.cpp
+    viewdialog.cpp
 
 HEADERS += \
     belkin.h \
@@ -23,10 +23,11 @@ HEADERS += \
     groupLeader.h \
     #menu.h \
     student.h \
-    utils.h
+    viewdialog.h
 
 FORMS += \
-    belkin.ui
+    belkin.ui \
+    viewdialog.ui
 
 
 # INCLUDEPATH += "/opt/homebrew/include"
