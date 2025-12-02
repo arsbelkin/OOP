@@ -35,6 +35,11 @@ void Group::showAllStudents(QPainter *painter, const int &st_Xpoint, const int &
 }
 
 
+void Group::addStudent(std::shared_ptr<Student> student){
+    this->students.push_back(student);
+}
+
+
 void Group::deleteAllStudents(){
     this->students.clear();
 }

@@ -9,6 +9,7 @@ CONFIG += c++23
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    createdialog.cpp \
     group.cpp \
     groupLeader.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     belkin.h \
+    createdialog.h \
     group.h \
     groupLeader.h \
     #menu.h \
@@ -27,6 +29,7 @@ HEADERS += \
 
 FORMS += \
     belkin.ui \
+    createdialog.ui \
     viewdialog.ui
 
 

@@ -33,6 +33,25 @@ public:
                     QLabel *email_label, QLineEdit *email_edit,
                     QLabel *phone_label, QLineEdit *phone_edit) override;
 
+
+    void fillFields(QLineEdit *id_edit,
+                            QLineEdit *name_edit,
+                            QLineEdit *surname_edit,
+                            QLineEdit *age_edit,
+                            QLineEdit *gender_edit,
+                            QLabel *email_label, QLineEdit *email_edit,
+                            QLabel *phone_label, QLineEdit *phone_edit,
+                            QCheckBox *checkBox) override;
+
+
+    void setParams(QLineEdit *id_edit,
+                           QLineEdit *name_edit,
+                           QLineEdit *surname_edit,
+                           QLineEdit *age_edit,
+                           QLineEdit *gender_edit,
+                           QLabel *email_label, QLineEdit *email_edit,
+                           QLabel *phone_label, QLineEdit *phone_edit) override;
+
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {
         ar& boost::serialization::base_object<Student>(*this);

@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 viewDialog::viewDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::viewDialog)
@@ -125,3 +126,66 @@ void viewDialog::on_deleteButton_clicked()
         this->clear_fields();
     }
 }
+
+
+void viewDialog::addStudent(std::shared_ptr<Student> newStudent){
+    if (newStudent)
+        this->students.push_back(newStudent);
+}
+
+
+void viewDialog::on_addButton_clicked()
+{
+    this->setEnabled(false);
+
+    auto newStudent = this->CD.open_for_new_student();
+
+    if (newStudent){
+        this->students.push_back(newStudent);
+
+        this->ui->listWidget->addItem(
+                QString::fromStdString(newStudent->get_info())
+            );
+
+        this->selectedRow = ui->listWidget->count() - 1;
+
+        this->ui->listWidget->setCurrentRow(this->selectedRow);
+
+        QListWidgetItem* item = this->ui->listWidget->item(this->selectedRow);
+        if (item) {
+            on_listWidget_itemClicked(item);
+        }
+    }
+
+    this->setEnabled(true);
+}
+
+
+void viewDialog::on_changeButton_clicked()
+{
+    if (this->selectedRow < 0)
+        return;
+
+    this->setEnabled(false);
+
+    this->students[this->selectedRow] = this->CD.open_for_edit_student(
+                                                this->students[this->selectedRow]
+                                        );
+
+    QListWidgetItem* item = this->ui->listWidget->item(this->selectedRow);
+    if (item) {
+        item->setText(
+            QString::fromStdString(this->students[this->selectedRow]->get_info())
+            );
+    }
+
+    this->ui->listWidget->setCurrentRow(this->selectedRow);
+
+    if (item) {
+        on_listWidget_itemClicked(item);
+    }
+
+    this->setEnabled(true);
+    this->activateWindow();
+}
+

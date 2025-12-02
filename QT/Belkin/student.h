@@ -11,6 +11,7 @@
 
 #include "QLineEdit"
 #include "QLabel"
+#include "QCheckBox"
 
 
 class Student{
@@ -25,7 +26,7 @@ private:
 
     friend class boost::serialization::access;
 public:
-    Student() : studentId(0), name(""), surname(""), age(0), gender(0) { }
+    Student() : studentId(current_studentId++), name(""), surname(""), age(0), gender(0) { }
 
     virtual void draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
                       const int &rWidth, const int &rHeight) const;
@@ -43,6 +44,24 @@ public:
                             QLabel *email_label, QLineEdit *email_edit,
                             QLabel *phone_label, QLineEdit *phone_edit);
 
+    virtual void fillFields(QLineEdit *id_edit,
+                            QLineEdit *name_edit,
+                            QLineEdit *surname_edit,
+                            QLineEdit *age_edit,
+                            QLineEdit *gender_edit,
+                            QLabel *email_label, QLineEdit *email_edit,
+                            QLabel *phone_label, QLineEdit *phone_edit,
+                            QCheckBox *checkBox);
+
+
+    virtual void setParams(QLineEdit *id_edit,
+                           QLineEdit *name_edit,
+                           QLineEdit *surname_edit,
+                           QLineEdit *age_edit,
+                           QLineEdit *gender_edit,
+                           QLabel *email_label, QLineEdit *email_edit,
+                           QLabel *phone_label, QLineEdit *phone_edit);
+
     int get_id() const;
     int get_age() const;
     std::string get_name() const;
@@ -50,7 +69,10 @@ public:
     bool get_gender() const;
     std::string print_gender() const;
 
-    static void set_currentID(int &new_current_studentId);
+    bool convert_gender(std::string gndr);
+
+    static void set_currentID(const int &new_current_studentId);
+    static int get_currentID() {return current_studentId;}
 
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {

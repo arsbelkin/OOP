@@ -29,15 +29,7 @@ public:
     Group(const std::string &title);
     ~Group();
 
-    template<typename T>
-    void addStudent(){
-        std::cout << "-----создание " << T::get_classNameStatic() << "-----" << std::endl;
-
-        std::shared_ptr<T> newObj = std::make_shared<T>(std::cin);
-        this->students.push_back(newObj);
-
-        std::cout << "-------------" << std::endl;
-    };
+    void addStudent(std::shared_ptr<Student> student);
 
     std::string get_title() const;
 

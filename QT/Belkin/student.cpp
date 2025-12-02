@@ -99,10 +99,54 @@ void Student::fillFields(QLineEdit *id_edit,
     phone_edit->setVisible(false);
 }
 
+
+void Student::fillFields(QLineEdit *id_edit,
+                         QLineEdit *name_edit,
+                         QLineEdit *surname_edit,
+                         QLineEdit *age_edit,
+                         QLineEdit *gender_edit,
+                         QLabel *email_label, QLineEdit *email_edit,
+                         QLabel *phone_label, QLineEdit *phone_edit,
+                         QCheckBox *checkBox)
+{
+    this->fillFields(id_edit,
+                        name_edit,
+                        surname_edit,
+                        age_edit,
+                        gender_edit,
+                        email_label, email_edit,
+                        phone_label, phone_edit);
+
+    checkBox->setChecked(false);
+
+}
+
+
+bool Student::convert_gender(std::string gndr){
+    return gndr == "М";
+}
+
+
+void Student::setParams(QLineEdit *id_edit,
+                         QLineEdit *name_edit,
+                         QLineEdit *surname_edit,
+                         QLineEdit *age_edit,
+                         QLineEdit *gender_edit,
+                         QLabel *email_label, QLineEdit *email_edit,
+                         QLabel *phone_label, QLineEdit *phone_edit)
+{
+    this->studentId = id_edit->text().toInt();
+    this->name = name_edit->text().toStdString();
+    this->surname = surname_edit->text().toStdString();
+    this->age = age_edit->text().toInt();
+    this->gender = this->convert_gender(gender_edit->text().toStdString());
+}
+
+
 std::string Student::get_info() const{
     return this->get_name();
 }
 
-void Student::set_currentID(int &new_current_studentId){
+void Student::set_currentID(const int &new_current_studentId){
     Student::current_studentId = new_current_studentId;
 }

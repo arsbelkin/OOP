@@ -5,7 +5,7 @@
 using namespace std;
 
 
-GroupLeader::GroupLeader() : Student() {};
+GroupLeader::GroupLeader() : Student() {}
 
 
 void GroupLeader::draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint,
@@ -76,6 +76,58 @@ void GroupLeader::fillFields(QLineEdit *id_edit,
     phone_label->setVisible(true);
     phone_edit->setVisible(true);
     phone_edit->setText(QString::fromStdString(this->get_phoneNumber()));
+}
+
+
+void GroupLeader::fillFields(QLineEdit *id_edit,
+                         QLineEdit *name_edit,
+                         QLineEdit *surname_edit,
+                         QLineEdit *age_edit,
+                         QLineEdit *gender_edit,
+                         QLabel *email_label, QLineEdit *email_edit,
+                         QLabel *phone_label, QLineEdit *phone_edit,
+                         QCheckBox *checkBox)
+{
+    Student::fillFields(id_edit,
+                        name_edit,
+                        surname_edit,
+                        age_edit,
+                        gender_edit,
+                        email_label, email_edit,
+                        phone_label, phone_edit,
+                        checkBox);
+
+    this->fillFields(id_edit,
+                     name_edit,
+                     surname_edit,
+                     age_edit,
+                     gender_edit,
+                     email_label, email_edit,
+                     phone_label, phone_edit);
+
+    checkBox->setChecked(true);
+
+}
+
+
+void GroupLeader::setParams(QLineEdit *id_edit,
+                             QLineEdit *name_edit,
+                             QLineEdit *surname_edit,
+                             QLineEdit *age_edit,
+                             QLineEdit *gender_edit,
+                             QLabel *email_label, QLineEdit *email_edit,
+                             QLabel *phone_label, QLineEdit *phone_edit)
+{
+    Student::setParams(id_edit,
+                        name_edit,
+                        surname_edit,
+                        age_edit,
+                        gender_edit,
+                        email_label, email_edit,
+                        phone_label, phone_edit);
+
+    this->email = email_edit->text().toStdString();
+    this->phoneNumber = phone_edit->text().toStdString();
 }
 
 

@@ -6,6 +6,8 @@
 
 #include "group.h"
 
+#include "createdialog.h"
+
 
 namespace Ui {
 class viewDialog;
@@ -24,12 +26,19 @@ public:
     void open_dialog(const Group &group);
 
     void setStudents(Group &group);
+
+    void addStudent(std::shared_ptr<Student> newStudent);
 private slots:
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
     void on_deleteButton_clicked();
+    void on_addButton_clicked();
+    void on_changeButton_clicked();
+
 private:
     Ui::viewDialog *ui;
+
+    CreateDialog CD;
 
     int selectedRow = -1;
 
