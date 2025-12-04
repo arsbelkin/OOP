@@ -68,14 +68,7 @@ std::shared_ptr<Student> CreateDialog::open_for_edit_student(std::shared_ptr<Stu
 
     this->student = editStudent;
 
-    this->student->fillFields(this->ui->id_edit,
-                        this->ui->name_edit,
-                        this->ui->surname_edit,
-                        this->ui->age_edit,
-                        this->ui->gender_edit,
-                        this->ui->email_label, this->ui->email_edit,
-                        this->ui->phone_label, this->ui->phone_edit,
-                        this->ui->checkBox);
+    this->student->fillFields(this);
 
     this->on_checkBox_clicked(this->ui->checkBox->checkState());
 
@@ -109,13 +102,7 @@ void CreateDialog::on_saveButton_clicked()
     else
         this->student = std::make_shared<Student>();
 
-    this->student->setParams(this->ui->id_edit,
-                              this->ui->name_edit,
-                              this->ui->surname_edit,
-                              this->ui->age_edit,
-                              this->ui->gender_edit,
-                              this->ui->email_label, this->ui->email_edit,
-                              this->ui->phone_label, this->ui->phone_edit);
+    this->student->setParams(this);
 
     this->saved = true;
 

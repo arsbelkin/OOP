@@ -48,6 +48,9 @@ private:
 
     void clear_dialog();
     void clear_fields();
+
+    friend class Student;
+    friend class GroupLeader;
 };
 
 #endif // VIEWDIALOG_H

@@ -1,7 +1,6 @@
 #ifndef GROUPLEADER_H
 #define GROUPLEADER_H
 
-
 #include "student.h"
 
 
@@ -25,32 +24,11 @@ public:
 
     std::string get_info() const override;
 
-    void fillFields(QLineEdit *id_edit,
-                    QLineEdit *name_edit,
-                    QLineEdit *surname_edit,
-                    QLineEdit *age_edit,
-                    QLineEdit *gender_edit,
-                    QLabel *email_label, QLineEdit *email_edit,
-                    QLabel *phone_label, QLineEdit *phone_edit) override;
+    void fillFields(viewDialog *dialog) override;
 
+    void fillFields(CreateDialog *dialog) override;
 
-    void fillFields(QLineEdit *id_edit,
-                            QLineEdit *name_edit,
-                            QLineEdit *surname_edit,
-                            QLineEdit *age_edit,
-                            QLineEdit *gender_edit,
-                            QLabel *email_label, QLineEdit *email_edit,
-                            QLabel *phone_label, QLineEdit *phone_edit,
-                            QCheckBox *checkBox) override;
-
-
-    void setParams(QLineEdit *id_edit,
-                           QLineEdit *name_edit,
-                           QLineEdit *surname_edit,
-                           QLineEdit *age_edit,
-                           QLineEdit *gender_edit,
-                           QLabel *email_label, QLineEdit *email_edit,
-                           QLabel *phone_label, QLineEdit *phone_edit) override;
+    void setParams(CreateDialog *dialog) override;
 
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {

@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "viewdialog.h"
+#include "ui_viewdialog.h"
+#include "createdialog.h"
+#include "ui_createdialog.h".h"
 
 using namespace std;
 
@@ -78,47 +82,37 @@ void Student::draw(QPainter *painter, const int &st_Xpoint, const int &st_Ypoint
 }
 
 
-void Student::fillFields(QLineEdit *id_edit,
-                         QLineEdit *name_edit,
-                         QLineEdit *surname_edit,
-                         QLineEdit *age_edit,
-                         QLineEdit *gender_edit,
-                         QLabel *email_label, QLineEdit *email_edit,
-                         QLabel *phone_label, QLineEdit *phone_edit)
+void Student::fillFields(viewDialog *dialog)
 {
-    id_edit->setText(QString::number(this->get_id()));
-    name_edit->setText(QString::fromStdString(this->get_name()));
-    surname_edit->setText(QString::fromStdString(this->get_surname()));
-    age_edit->setText(QString::number(this->get_age()));
-    gender_edit->setText(QString::fromStdString(this->print_gender()));
+    dialog->ui->id_edit->setText(QString::number(this->get_id()));
+    dialog->ui->name_edit->setText(QString::fromStdString(this->get_name()));
+    dialog->ui->surname_edit->setText(QString::fromStdString(this->get_surname()));
+    dialog->ui->age_edit->setText(QString::number(this->get_age()));
+    dialog->ui->gender_edit->setText(QString::fromStdString(this->print_gender()));
 
-    email_label->setVisible(false);
-    email_edit->setVisible(false);
+    dialog->ui->email_label->setVisible(false);
+    dialog->ui->email_edit->setVisible(false);
 
-    phone_label->setVisible(false);
-    phone_edit->setVisible(false);
+    dialog->ui->phone_label->setVisible(false);
+    dialog->ui->phone_edit->setVisible(false);
 }
 
 
-void Student::fillFields(QLineEdit *id_edit,
-                         QLineEdit *name_edit,
-                         QLineEdit *surname_edit,
-                         QLineEdit *age_edit,
-                         QLineEdit *gender_edit,
-                         QLabel *email_label, QLineEdit *email_edit,
-                         QLabel *phone_label, QLineEdit *phone_edit,
-                         QCheckBox *checkBox)
+void Student::fillFields(CreateDialog *dialog)
 {
-    this->fillFields(id_edit,
-                        name_edit,
-                        surname_edit,
-                        age_edit,
-                        gender_edit,
-                        email_label, email_edit,
-                        phone_label, phone_edit);
+    dialog->ui->id_edit->setText(QString::number(this->get_id()));
+    dialog->ui->name_edit->setText(QString::fromStdString(this->get_name()));
+    dialog->ui->surname_edit->setText(QString::fromStdString(this->get_surname()));
+    dialog->ui->age_edit->setText(QString::number(this->get_age()));
+    dialog->ui->gender_edit->setText(QString::fromStdString(this->print_gender()));
 
-    checkBox->setChecked(false);
+    dialog->ui->email_label->setVisible(false);
+    dialog->ui->email_edit->setVisible(false);
 
+    dialog->ui->phone_label->setVisible(false);
+    dialog->ui->phone_edit->setVisible(false);
+
+    dialog->ui->checkBox->setChecked(false);
 }
 
 
@@ -127,19 +121,13 @@ bool Student::convert_gender(std::string gndr){
 }
 
 
-void Student::setParams(QLineEdit *id_edit,
-                         QLineEdit *name_edit,
-                         QLineEdit *surname_edit,
-                         QLineEdit *age_edit,
-                         QLineEdit *gender_edit,
-                         QLabel *email_label, QLineEdit *email_edit,
-                         QLabel *phone_label, QLineEdit *phone_edit)
+void Student::setParams(CreateDialog *dialog)
 {
-    this->studentId = id_edit->text().toInt();
-    this->name = name_edit->text().toStdString();
-    this->surname = surname_edit->text().toStdString();
-    this->age = age_edit->text().toInt();
-    this->gender = this->convert_gender(gender_edit->text().toStdString());
+    this->studentId = dialog->ui->id_edit->text().toInt();
+    this->name = dialog->ui->name_edit->text().toStdString();
+    this->surname = dialog->ui->surname_edit->text().toStdString();
+    this->age = dialog->ui->age_edit->text().toInt();
+    this->gender = this->convert_gender(dialog->ui->gender_edit->text().toStdString());
 }
 
 

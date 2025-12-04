@@ -9,9 +9,9 @@
 #include <string>
 #include "QPainter"
 
-#include "QLineEdit"
-#include "QLabel"
-#include "QCheckBox"
+
+class viewDialog;
+class CreateDialog;
 
 
 class Student{
@@ -36,31 +36,11 @@ public:
 
     virtual std::string get_info() const;
 
-    virtual void fillFields(QLineEdit *id_edit,
-                            QLineEdit *name_edit,
-                            QLineEdit *surname_edit,
-                            QLineEdit *age_edit,
-                            QLineEdit *gender_edit,
-                            QLabel *email_label, QLineEdit *email_edit,
-                            QLabel *phone_label, QLineEdit *phone_edit);
+    virtual void fillFields(viewDialog *dialog);
 
-    virtual void fillFields(QLineEdit *id_edit,
-                            QLineEdit *name_edit,
-                            QLineEdit *surname_edit,
-                            QLineEdit *age_edit,
-                            QLineEdit *gender_edit,
-                            QLabel *email_label, QLineEdit *email_edit,
-                            QLabel *phone_label, QLineEdit *phone_edit,
-                            QCheckBox *checkBox);
+    virtual void fillFields(CreateDialog *dialog);
 
-
-    virtual void setParams(QLineEdit *id_edit,
-                           QLineEdit *name_edit,
-                           QLineEdit *surname_edit,
-                           QLineEdit *age_edit,
-                           QLineEdit *gender_edit,
-                           QLabel *email_label, QLineEdit *email_edit,
-                           QLabel *phone_label, QLineEdit *phone_edit);
+    virtual void setParams(CreateDialog *dialog);
 
     int get_id() const;
     int get_age() const;

@@ -41,6 +41,9 @@ private:
     bool saved = false;
 
     bool isChecked;
+
+    friend class Student;
+    friend class GroupLeader;
 };
 
 #endif // CREATEDIALOG_H

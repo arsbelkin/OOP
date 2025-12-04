@@ -4,8 +4,6 @@
 
 #include "QFont"
 
-#include <iostream>
-
 
 viewDialog::viewDialog(QWidget *parent)
     : QDialog(parent)
@@ -98,13 +96,7 @@ void viewDialog::on_listWidget_itemClicked(QListWidgetItem *item)
     this->selectedRow = ui->listWidget->row(item);
     const auto &student = this->students[this->selectedRow];
 
-    student->fillFields(this->ui->id_edit,
-                        this->ui->name_edit,
-                        this->ui->surname_edit,
-                        this->ui->age_edit,
-                        this->ui->gender_edit,
-                        this->ui->email_label, this->ui->email_edit,
-                        this->ui->phone_label, this->ui->phone_edit);
+    student->fillFields(this);
 }
 
 

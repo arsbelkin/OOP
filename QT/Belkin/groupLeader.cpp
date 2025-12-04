@@ -2,6 +2,11 @@
 #include "groupLeader.h"
 #include <vector>
 
+#include "viewdialog.h"
+#include "ui_viewdialog.h"
+#include "createdialog.h"
+#include "ui_createdialog.h".h"
+
 using namespace std;
 
 
@@ -53,81 +58,42 @@ void GroupLeader::draw(QPainter *painter, const int &st_Xpoint, const int &st_Yp
 }
 
 
-void GroupLeader::fillFields(QLineEdit *id_edit,
-                             QLineEdit *name_edit,
-                             QLineEdit *surname_edit,
-                             QLineEdit *age_edit,
-                             QLineEdit *gender_edit,
-                             QLabel *email_label, QLineEdit *email_edit,
-                             QLabel *phone_label, QLineEdit *phone_edit)
+void GroupLeader::fillFields(viewDialog *dialog)
 {
-    Student::fillFields(id_edit,
-                        name_edit,
-                        surname_edit,
-                        age_edit,
-                        gender_edit,
-                        email_label, email_edit,
-                        phone_label, phone_edit);
+    Student::fillFields(dialog);
 
-    email_label->setVisible(true);
-    email_edit->setVisible(true);
-    email_edit->setText(QString::fromStdString(this->get_email()));
+    dialog->ui->email_label->setVisible(true);
+    dialog->ui->email_edit->setVisible(true);
+    dialog->ui->email_edit->setText(QString::fromStdString(this->get_email()));
 
-    phone_label->setVisible(true);
-    phone_edit->setVisible(true);
-    phone_edit->setText(QString::fromStdString(this->get_phoneNumber()));
+    dialog->ui->phone_label->setVisible(true);
+    dialog->ui->phone_edit->setVisible(true);
+    dialog->ui->phone_edit->setText(QString::fromStdString(this->get_phoneNumber()));
 }
 
 
-void GroupLeader::fillFields(QLineEdit *id_edit,
-                         QLineEdit *name_edit,
-                         QLineEdit *surname_edit,
-                         QLineEdit *age_edit,
-                         QLineEdit *gender_edit,
-                         QLabel *email_label, QLineEdit *email_edit,
-                         QLabel *phone_label, QLineEdit *phone_edit,
-                         QCheckBox *checkBox)
+void GroupLeader::fillFields(CreateDialog *dialog)
 {
-    Student::fillFields(id_edit,
-                        name_edit,
-                        surname_edit,
-                        age_edit,
-                        gender_edit,
-                        email_label, email_edit,
-                        phone_label, phone_edit,
-                        checkBox);
+    Student::fillFields(dialog);
 
-    this->fillFields(id_edit,
-                     name_edit,
-                     surname_edit,
-                     age_edit,
-                     gender_edit,
-                     email_label, email_edit,
-                     phone_label, phone_edit);
+    dialog->ui->email_label->setVisible(true);
+    dialog->ui->email_edit->setVisible(true);
+    dialog->ui->email_edit->setText(QString::fromStdString(this->get_email()));
 
-    checkBox->setChecked(true);
+    dialog->ui->phone_label->setVisible(true);
+    dialog->ui->phone_edit->setVisible(true);
+    dialog->ui->phone_edit->setText(QString::fromStdString(this->get_phoneNumber()));
 
+    dialog->ui->checkBox->setChecked(true);
 }
 
 
-void GroupLeader::setParams(QLineEdit *id_edit,
-                             QLineEdit *name_edit,
-                             QLineEdit *surname_edit,
-                             QLineEdit *age_edit,
-                             QLineEdit *gender_edit,
-                             QLabel *email_label, QLineEdit *email_edit,
-                             QLabel *phone_label, QLineEdit *phone_edit)
+void GroupLeader::setParams(CreateDialog *dialog)
 {
-    Student::setParams(id_edit,
-                        name_edit,
-                        surname_edit,
-                        age_edit,
-                        gender_edit,
-                        email_label, email_edit,
-                        phone_label, phone_edit);
+    Student::setParams(dialog);
 
-    this->email = email_edit->text().toStdString();
-    this->phoneNumber = phone_edit->text().toStdString();
+    this->email = dialog->ui->email_edit->text().toStdString();
+    this->phoneNumber = dialog->ui->phone_edit->text().toStdString();
 }
 
 
