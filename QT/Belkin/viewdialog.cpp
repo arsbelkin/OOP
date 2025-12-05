@@ -180,4 +180,3 @@ void viewDialog::on_changeButton_clicked()
     this->setEnabled(true);
     this->activateWindow();
 }
-
