@@ -7,7 +7,7 @@
 #include "viewdialog.h"
 #include "ui_viewdialog.h"
 #include "createdialog.h"
-#include "ui_createdialog.h".h"
+#include "ui_createdialog.h"
 
 using namespace std;
 

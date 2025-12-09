@@ -1,0 +1,46 @@
+[
+  {
+    "$type": "student",
+    "StudentId": 1,
+    "Name": "\u0430\u0440\u0441\u0435\u043D\u0438\u0439",
+    "Surname": "\u0431\u0435\u043B\u043A\u0438\u043D",
+    "Age": 20,
+    "Gender": true
+  },
+  {
+    "$type": "student",
+    "StudentId": 2,
+    "Name": "\u043B\u0435\u0445\u0430",
+    "Surname": "\u0441\u0443\u044E\u0448\u043A\u0438\u043D",
+    "Age": 19,
+    "Gender": true
+  },
+  {
+    "$type": "groupleader",
+    "Email": "mon@ya.com",
+    "PhoneNumber": "32245245",
+    "StudentId": 3,
+    "Name": "\u0438\u043B\u044E\u0445\u0430",
+    "Surname": "\u043C\u043E\u043D\u0435\u0441\u0438",
+    "Age": 21,
+    "Gender": true
+  },
+  {
+    "$type": "student",
+    "StudentId": 4,
+    "Name": "\u043B\u0435\u043D\u0430",
+    "Surname": "\u0432\u0430\u0441\u044E\u043A\u043E\u0432\u0430",
+    "Age": 19,
+    "Gender": false
+  },
+  {
+    "$type": "groupleader",
+    "Email": "semen@pocta.ru",
+    "PhoneNumber": "325235",
+    "StudentId": 5,
+    "Name": "\u0441\u0435\u043C\u0435\u043D",
+    "Surname": "\u0441\u0430\u0432\u0435\u043B\u0438\u0439",
+    "Age": 24,
+    "Gender": true
+  }
+]
