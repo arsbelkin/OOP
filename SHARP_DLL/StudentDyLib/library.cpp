@@ -1,7 +1,10 @@
 #include "library.h"
 
-#include <iostream>
+#include <boost/serialization/export.hpp>
 
-void hello() {
-    std::cout << "Hello, World!" << std::endl;
-}
+using namespace std;
+
+BOOST_CLASS_EXPORT_IMPLEMENT(Student)
+BOOST_CLASS_EXPORT_IMPLEMENT(GroupLeader)
+
+

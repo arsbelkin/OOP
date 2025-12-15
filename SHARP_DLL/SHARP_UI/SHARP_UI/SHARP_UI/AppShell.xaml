@@ -7,7 +7,6 @@
     Title="SHARP_UI">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
