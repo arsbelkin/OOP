@@ -1,0 +1,6 @@
+#ifndef STUDENTDYLIB_LIBRARY_H
+#define STUDENTDYLIB_LIBRARY_H
+
+void hello();
+
+#endif // STUDENTDYLIB_LIBRARY_H

@@ -5,6 +5,10 @@
 # Prerequisites
 *.d
 
+
+SHARP_DLL/*/.idea
+SHARP_DLL/SHARP_UI/*/.idea
+
 # Compiled Object files
 *.slo
 *.lo
