@@ -1,36 +1,106 @@
 ﻿using System.Collections.ObjectModel;
-using Microsoft.Maui.Controls;
+using System.Runtime.InteropServices;
 
 namespace SHARP_UI;
 
+public class StudentDisplayItem
+{
+    public string Name { get; set; }
+    public int NativeIndex { get; set; }
+}
+
+
 public partial class MainPage : ContentPage
 {
-    private ObservableCollection<string> StringList { get; } = new ObservableCollection<string>
-    {
-        "John Doe", "Jane Smith", "Bob Johnson", "Alice Brown", "Charlie Wilson"
-    };
-    
-    private string _selectedString = string.Empty;
-    public string SelectedString
-    {
-        get => _selectedString;
-        set
-        {
-            _selectedString = value;
-            OnPropertyChanged();
-            OnSelected();
-        }
-    }
-    
     public MainPage()
     {
         InitializeComponent();
         BindingContext = this;
     }
+
+    public ObservableCollection<StudentDisplayItem> StudentList { get; } = new();
+    
+    private void OnSelected()
+    {
+        if (SelectedStudent == null)
+        {
+            _clearFields();
+            return;
+        }
+        
+        var student = DyLibAssistant.GetStudent(SelectedStudent.NativeIndex);
+        
+        try
+        {
+            IdEntry.Text = student.StudentId.ToString();
+            NameEntry.Text = student.GetName();
+            SurnameEntry.Text = student.GetSurname();
+            AgeEntry.Text = student.Age.ToString();
+
+            GenderEntry.Text = student.Gender ? "М" : "Ж";
+
+            GLInfoCheckBox.IsChecked = student.IsGroupLeader;
+
+            EmailEntry.Text = student.GetEmail();
+            PhoneEntry.Text = student.GetPhoneNumber();
+        }
+        finally
+        {
+            DyLibAssistant.FreeStudent(student);
+        }
+    }
+
+    private void _clearFields()
+    {
+        IdEntry.Text = string.Empty;
+        NameEntry.Text = string.Empty;
+        SurnameEntry.Text = string.Empty;
+        AgeEntry.Text = string.Empty;
+        GenderEntry.Text = string.Empty;
+        EmailEntry.Text = string.Empty;
+        PhoneEntry.Text = string.Empty;
+    }
+    
+    private StudentDisplayItem _selectedStudent;
+    public StudentDisplayItem SelectedStudent
+    {
+        get => _selectedStudent;
+        set
+        {
+            if (_selectedStudent != value)
+            {
+                _selectedStudent = value;
+                OnPropertyChanged();
+                OnSelected();
+            }
+        }
+    }
+
+    public void FillStudentNames()
+    {
+        var nativeArray = DyLibAssistant.get_studentNames();
+
+        try
+        {
+            StudentList.Clear();
+
+            for (var i = 0; i < nativeArray.size; i++)
+            {
+                var ptr = Marshal.ReadIntPtr(nativeArray.data, i * IntPtr.Size);
+                var name = Marshal.PtrToStringAnsi(ptr) ?? string.Empty;
+
+                StudentList.Add(new StudentDisplayItem { Name = name, NativeIndex = i });
+            }
+        }
+        finally
+        {
+            DyLibAssistant.free_string_array(nativeArray);
+        }
+    }
     
     private void OnExtendedInfoChanged(object sender, CheckedChangedEventArgs e)
     {
-        bool isChecked = e.Value;
+        var isChecked = e.Value;
         
         EmailLabel.IsVisible = isChecked;
         EmailBorder.IsVisible = isChecked;
@@ -38,63 +108,54 @@ public partial class MainPage : ContentPage
         PhoneBorder.IsVisible = isChecked;
     }
     
-    private void OnSelected()
+    public async void OnLoadClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(SelectedString)) return;
-        
-        NameEntry.Text = SelectedString;
-        SurnameEntry.Text = "User";
-        AgeEntry.Text = "30";
-        IdEntry.Text = "001";
+        try
+        {
+            var result = await FilePicker.Default.PickAsync();
 
-        if (!ExtendedInfoCheckBox.IsChecked) return;
-        
-        EmailEntry.Text = $"{SelectedString.ToLower().Replace(" ", ".")}@example.com";
-        PhoneEntry.Text = "+1 (555) 123-4567";
-    }
-    
-    private void OnLoadClicked(object sender, EventArgs e)
-    {
-        DisplayAlert("Info", "Load functionality", "OK");
+            if (result == null) return;
+
+            var res = DyLibAssistant.LoadStudentsFromFile(result.FullPath);
+            if (res)
+                FillStudentNames();
+        }
+        catch (Exception exp)
+        {
+            Console.WriteLine(value: exp.Message);
+            await DisplayAlert(title: "Информация", message: "Выбор файла отменен", cancel: "OK");
+        }
     }
     
     private void OnSaveClicked(object sender, EventArgs e)
     {
-        DisplayAlert("Info", "Save functionality", "OK");
+        DisplayAlert(title: "Info", message: "Save functionality", cancel: "OK");
     }
     
     private void OnClearClicked(object sender, EventArgs e)
     {
-        IdEntry.Text = string.Empty;
-        NameEntry.Text = string.Empty;
-        SurnameEntry.Text = string.Empty;
-        AgeEntry.Text = string.Empty;
-        EmailEntry.Text = string.Empty;
-        PhoneEntry.Text = string.Empty;
+        _clearFields();
+        
+        StudentList.Clear();
+        
+        DyLibAssistant.ClearAllStudents();
     }
     
     private void OnAddClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(NameEntry.Text)) return;
-        
-        StringList.Add(NameEntry.Text);
+        StudentList.Add(new StudentDisplayItem { Name=string.Empty, NativeIndex = -1});
     }
     
-    private void OnChangeClicked(object sender, EventArgs e)
+    private void OnAddGLClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(SelectedString) || string.IsNullOrEmpty(NameEntry.Text)) return;
-        
-        var index = StringList.IndexOf(SelectedString);
-        if (index < 0) return;
-        
-        StringList[index] = NameEntry.Text;
+        Console.WriteLine("dsgg");
     }
     
     private void OnDeleteClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(SelectedString)) return;
+        if (SelectedStudent==null) return;
         
-        StringList.Remove(SelectedString);
-        OnClearClicked(sender, e);
+        StudentList.Remove(item: SelectedStudent);
+        OnClearClicked(sender: sender, e: e);
     }
 }

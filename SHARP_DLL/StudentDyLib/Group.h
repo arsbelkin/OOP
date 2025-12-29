@@ -27,11 +27,17 @@ class Group {
         ar& students;
     }
 public:
-    bool loadStudentsFromFile(const std::string &pathToFile);
+    Group(const std::string &titleGroup);
+    bool loadStudentsFromFile(const char* pathToFile);
+
+    std::string get_title() {return title;};
+    std::vector<std::string> get_studentNamesWithInfo() const;
+
+    HelpStruct get_studentInfo(int index);
+
+    void clearAllStudents() {students.clear();}
 
     void set_current_studentID() const;
 };
-
-
 
 #endif //STUDENTDYLIB_GROUP_H

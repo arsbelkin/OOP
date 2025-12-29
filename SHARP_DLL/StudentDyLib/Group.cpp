@@ -8,7 +8,12 @@
 using namespace std;
 
 
-bool Group::loadStudentsFromFile(const std::string &pathToFile) {
+Group::Group(const std::string &titleGroup) {
+    this->title = titleGroup;
+}
+
+
+bool Group::loadStudentsFromFile(const char* pathToFile) {
     ifstream file(pathToFile);
 
     if (file.is_open()){
@@ -18,6 +23,24 @@ bool Group::loadStudentsFromFile(const std::string &pathToFile) {
         return true;
     } else {
         return false;
+    }
+}
+
+
+std::vector<std::string> Group::get_studentNamesWithInfo() const {
+    std::vector<std::string> studentNames;
+    for (const auto& student : this->students) {
+        studentNames.push_back(student->get_info());
+    }
+    return studentNames;
+}
+
+HelpStruct Group::get_studentInfo(int index) {
+    if (index < this->students.size()) {
+        return this->students[index]->get_StudentInfo();
+    }
+    else {
+        return {};
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SHARP_UI"
              x:Class="SHARP_UI.MainPage"
              Title="Student Management"
              BackgroundColor="#F8F9FA">
@@ -29,91 +30,70 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 
-                <Border Grid.Row="0" 
-                       BackgroundColor="#1565C0"
-                       StrokeShape="RoundRectangle 12,12,0,0">
-                    <Label Text="Список студентов"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="White"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           Padding="15" />
-                </Border>
                 
-                <CollectionView Grid.Row="1"
-                               ItemsSource="{Binding StringList}"
-                               SelectionMode="Single"
-                               SelectedItem="{Binding SelectedString}"
-                               Margin="0"
-                               BackgroundColor="White">
-                    
-                    <CollectionView.Header>
-                        <BoxView HeightRequest="1" 
-                                Color="#EEEEEE" 
-                                Margin="10,0"/>
-                    </CollectionView.Header>
-                    
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Stroke="Transparent"
-                                    StrokeThickness="0"
-                                    Padding="15,12"
-                                    BackgroundColor="Transparent">
+               <CollectionView Grid.Row="0"
+                ItemsSource="{Binding StudentList}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedStudent}"
+                Margin="0"
+                BackgroundColor="White">
+    
+                <CollectionView.Header>
+                    <BoxView HeightRequest="1" 
+                             Color="#EEEEEE" 
+                             Margin="10,0"/>
+                </CollectionView.Header>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:StudentDisplayItem"> <!-- Указываем тип данных -->
+                        <Border Stroke="Transparent"
+                                StrokeThickness="0"
+                                Padding="15,12"
+                                BackgroundColor="Transparent">
+                            
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 
-                                <Grid ColumnSpacing="10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <!-- <Border Grid.Column="0" -->
-                                    <!--        BackgroundColor="#E3F2FD" -->
-                                    <!--        StrokeShape="RoundRectangle 20" -->
-                                    <!--        HeightRequest="40" -->
-                                    <!--        WidthRequest="40" -->
-                                    <!--        VerticalOptions="Center"> -->
-                                    <!--     <Label Text="👤" -->
-                                    <!--            FontSize="18" -->
-                                    <!--            VerticalOptions="Center" -->
-                                    <!--            HorizontalOptions="Center" /> -->
-                                    <!-- </Border> -->
-                                    
-                                    <VerticalStackLayout Grid.Column="1"
-                                                        VerticalOptions="Center">
-                                        <Label Text="{Binding}"
-                                               FontSize="16"
-                                               TextColor="#333333"
-                                               FontAttributes="Bold" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                                
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="0,0,8,8" />
-                                </Border.StrokeShape>
-                                
-                                <Border.Triggers>
-                                    <DataTrigger TargetType="Border"
-                                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, 
-                                                                  Path=SelectedItem}"
-                                                 Value="{Binding}">
-                                        <Setter Property="BackgroundColor" Value="#F0F7FF" />
-                                        <Setter Property="Stroke" Value="#1565C0" />
-                                        <Setter Property="StrokeThickness" Value="2" />
-                                    </DataTrigger>
-                                </Border.Triggers>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    
-                    <CollectionView.Footer>
-                        <Label Text="{Binding StringList.Count, StringFormat='Всего: {0}'}"
-                               FontSize="14"
-                               TextColor="#666666"
-                               HorizontalOptions="Center"
-                               Margin="0,15" />
-                    </CollectionView.Footer>
-                </CollectionView>
+                                <VerticalStackLayout Grid.Column="1"
+                                                     VerticalOptions="Center">
+                                    <!-- Изменено: Привязка к свойству Name объекта -->
+                                    <Label Text="{Binding Name}"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           FontAttributes="Bold" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="0,0,8,8" />
+                            </Border.StrokeShape>
+                            
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, 
+                                                              Path=SelectedItem}"
+                                             Value="{Binding .}"> <!-- Сравнение с самим объектом по ссылке -->
+                                    <Setter Property="BackgroundColor" Value="#F0F7FF" />
+                                    <Setter Property="Stroke" Value="#1565C0" />
+                                    <Setter Property="StrokeThickness" Value="2" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                <CollectionView.Footer>
+                    <Label Text="{Binding StudentList.Count, StringFormat='Всего: {0}'}"
+                           FontSize="14"
+                           TextColor="#666666"
+                           HorizontalOptions="Center"
+                           Margin="0,15" />
+                </CollectionView.Footer>
+            </CollectionView>
+
             </Grid>
         </Border>
         
@@ -142,17 +122,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Text="Редактировать"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       TextColor="#1565C0"
-                       HorizontalOptions="Center"
-                       Margin="0,0,0,10" />
-                
-                
-                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        BackgroundColor="#F5F5F5"
                        StrokeShape="RoundRectangle 8"
                        Stroke="Transparent"
@@ -160,7 +130,7 @@
                        Margin="0,0,0,10">
                     
                     <HorizontalStackLayout Spacing="10">
-                        <CheckBox x:Name="ExtendedInfoCheckBox"
+                        <CheckBox x:Name="GLInfoCheckBox"
                                   Color="#1565C0"
                                   VerticalOptions="Center"
                                   CheckedChanged="OnExtendedInfoChanged"/>
@@ -173,18 +143,19 @@
                 </Border>
                 
                 <!-- ID -->
-                <Label Grid.Row="2" Grid.Column="0"
+                <Label Grid.Row="1" Grid.Column="0"
                        Text="ID:"
                        FontSize="16"
                        TextColor="#333333"
                        VerticalOptions="Center" />
                 
-                <Border Grid.Row="2" Grid.Column="1"
+                <Border Grid.Row="1" Grid.Column="1"
                         Stroke="#E0E0E0"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 8"
                         BackgroundColor="#F8F9FA">
                     <Entry x:Name="IdEntry"
+                           IsReadOnly="True"
                            Placeholder="ID"
                            FontSize="16"
                            TextColor="#333333"
@@ -195,13 +166,13 @@
                 </Border>
                 
                 
-                <Label Grid.Row="3" Grid.Column="0"
+                <Label Grid.Row="2" Grid.Column="0"
                        Text="Имя:"
                        FontSize="16"
                        TextColor="#333333"
                        VerticalOptions="Center" />
                 
-                <Border Grid.Row="3" Grid.Column="1"
+                <Border Grid.Row="2" Grid.Column="1"
                         Stroke="#E0E0E0"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 8"
@@ -216,13 +187,13 @@
                            VerticalOptions="Center" />
                 </Border>
                 
-                <Label Grid.Row="4" Grid.Column="0"
+                <Label Grid.Row="3" Grid.Column="0"
                        Text="Фамилия:"
                        FontSize="16"
                        TextColor="#333333"
                        VerticalOptions="Center" />
                 
-                <Border Grid.Row="4" Grid.Column="1"
+                <Border Grid.Row="3" Grid.Column="1"
                         Stroke="#E0E0E0"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 8"
@@ -237,8 +208,30 @@
                            VerticalOptions="Center" />
                 </Border>
                 
-                <Label Grid.Row="5" Grid.Column="0"
+                <Label Grid.Row="4" Grid.Column="0"
                        Text="возраст:"
+                       FontSize="16"
+                       TextColor="#333333"
+                       VerticalOptions="Center" />
+                
+                <Border Grid.Row="4" Grid.Column="1"
+                        Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F8F9FA">
+                    <Entry x:Name="AgeEntry"
+                           Placeholder="введите возраст"
+                           FontSize="16"
+                           TextColor="#333333"
+                           BackgroundColor="Transparent"
+                           HeightRequest="45"
+                           Margin="10,0"
+                           VerticalOptions="Center"
+                           Keyboard="Numeric" />
+                </Border>
+                
+                <Label Grid.Row="5" Grid.Column="0"
+                       Text="пол:"
                        FontSize="16"
                        TextColor="#333333"
                        VerticalOptions="Center" />
@@ -248,8 +241,8 @@
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 8"
                         BackgroundColor="#F8F9FA">
-                    <Entry x:Name="AgeEntry"
-                           Placeholder="введите возраст"
+                    <Entry x:Name="GenderEntry"
+                           Placeholder="введите пол"
                            FontSize="16"
                            TextColor="#333333"
                            BackgroundColor="Transparent"
@@ -394,7 +387,7 @@
                             FontSize="16"
                             FontAttributes="Bold"
                             HeightRequest="55"
-                            Clicked="OnChangeClicked" />
+                            Clicked="OnAddGLClicked" />
                 </Border>
                 
                 <Border Grid.Row="1" Grid.Column="2"
@@ -406,7 +399,7 @@
                             TextColor="White"
                             FontSize="16"
                             FontAttributes="Bold"
-                            HeightRequest="55"
+                            HeightRequest="55" 
                             Clicked="OnDeleteClicked" />
                 </Border>
             </Grid>

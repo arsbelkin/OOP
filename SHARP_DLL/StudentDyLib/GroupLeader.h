@@ -17,6 +17,10 @@ class GroupLeader : public Student{
 public:
     GroupLeader();
 
+    std::string get_info() override {return get_name() + " (староста)";}
+
+    HelpStruct get_StudentInfo() override;
+
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {
         ar& boost::serialization::base_object<Student>(*this);
@@ -25,5 +29,6 @@ public:
     }
 };
 
+BOOST_CLASS_EXPORT_KEY(GroupLeader)
 
 #endif //STUDENTDYLIB_GROUPLEADER_H
